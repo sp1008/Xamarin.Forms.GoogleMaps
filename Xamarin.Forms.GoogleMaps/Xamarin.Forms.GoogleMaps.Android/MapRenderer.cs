@@ -24,7 +24,8 @@ namespace Xamarin.Forms.GoogleMaps.Android
     public class MapRenderer : ViewRenderer<Map, global::Android.Views.View>,
         GoogleMap.IOnMapClickListener,
         GoogleMap.IOnMapLongClickListener,
-        GoogleMap.IOnMyLocationButtonClickListener
+        GoogleMap.IOnMyLocationButtonClickListener,
+        GoogleMap.IOnPoiClickListener
     {
         readonly CameraLogic _cameraLogic;
         readonly UiSettingsLogic _uiSettingsLogic = new UiSettingsLogic();
@@ -169,6 +170,7 @@ namespace Xamarin.Forms.GoogleMaps.Android
                 nativeMap.SetOnMapClickListener(this);
                 nativeMap.SetOnMapLongClickListener(this);
                 nativeMap.SetOnMyLocationButtonClickListener(this);
+                nativeMap.SetOnPoiClickListener(this);
 
                 UpdateIsShowingUser(_uiSettingsLogic.MyLocationButtonEnabled);
                 UpdateHasScrollEnabled(_uiSettingsLogic.ScrollGesturesEnabled);
@@ -396,11 +398,16 @@ namespace Xamarin.Forms.GoogleMaps.Android
         {
             Map.SendMapLongClicked(point.ToPosition());
         }
+        public void OnPoiClick(PointOfInterest poi) 
+        {
+            Map.SendPoiClicked(poi.LatLng.ToPosition(), poi.PlaceId, poi.Name);
+        }
 
         public bool OnMyLocationButtonClick()
         {
             return Map.SendMyLocationClicked();
         }
+        
 
         void UpdateVisibleRegion(LatLng pos)
         {

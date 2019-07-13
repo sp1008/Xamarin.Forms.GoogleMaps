@@ -77,6 +77,7 @@ namespace Xamarin.Forms.GoogleMaps.iOS
                 {
                     mkMapView.CoordinateLongPressed -= CoordinateLongPressed;
                     mkMapView.CoordinateTapped -= CoordinateTapped;
+                    mkMapView.PoiWithPlaceIdTapped -= PoiTapped;
                     mkMapView.CameraPositionChanged -= CameraPositionChanged;
                     mkMapView.DidTapMyLocationButton = null;
                 }
@@ -114,6 +115,7 @@ namespace Xamarin.Forms.GoogleMaps.iOS
                 {
                     oldMapView.CoordinateLongPressed -= CoordinateLongPressed;
                     oldMapView.CoordinateTapped -= CoordinateTapped;
+                    oldMapView.PoiWithPlaceIdTapped -= PoiTapped;
                     oldMapView.CameraPositionChanged -= CameraPositionChanged;
                     oldMapView.DidTapMyLocationButton = null;
                 }
@@ -129,6 +131,7 @@ namespace Xamarin.Forms.GoogleMaps.iOS
                     var mkMapView = (MapView)Control;
                     mkMapView.CameraPositionChanged += CameraPositionChanged;
                     mkMapView.CoordinateTapped += CoordinateTapped;
+                    mkMapView.PoiWithPlaceIdTapped += PoiTapped;
                     mkMapView.CoordinateLongPressed += CoordinateLongPressed;
                     mkMapView.DidTapMyLocationButton = DidTapMyLocation;
                 }
@@ -294,6 +297,9 @@ namespace Xamarin.Forms.GoogleMaps.iOS
         void CoordinateLongPressed(object sender, GMSCoordEventArgs e)
         {
             Map.SendMapLongClicked(e.Coordinate.ToPosition());
+        }
+        void PoiTapped(object sender, GMSPoiWithPlaceIdEventEventArgs e) {
+            Map.SendPoiClicked(e.Location.ToPosition(), e.PlaceId, e.Name);
         }
 
         bool DidTapMyLocation(MapView mapView)

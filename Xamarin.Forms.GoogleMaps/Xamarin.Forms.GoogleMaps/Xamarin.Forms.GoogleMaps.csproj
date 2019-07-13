@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard1.0</TargetFrameworks>
@@ -8,6 +8,10 @@
     <AssemblyVersion>3.0.1.0</AssemblyVersion>
     <Version>3.0.1</Version>
     <Copyright>Copyright © amay077. 2016 - 2019</Copyright>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>

@@ -79,6 +79,7 @@ namespace Xamarin.Forms.GoogleMaps
 
         public event EventHandler<MapClickedEventArgs> MapClicked;
         public event EventHandler<MapLongClickedEventArgs> MapLongClicked;
+        public event EventHandler<PoiClickedEventArgs> PoiClicked;
         public event EventHandler<MyLocationButtonClickedEventArgs> MyLocationButtonClicked;
 
         [Obsolete("Please use Map.CameraIdled instead of this")]
@@ -413,6 +414,11 @@ namespace Xamarin.Forms.GoogleMaps
         internal void SendMapLongClicked(Position point)
         {
             MapLongClicked?.Invoke(this, new MapLongClickedEventArgs(point));
+        }
+
+        internal void SendPoiClicked(Position point, string pid, string name) 
+        {
+            PoiClicked?.Invoke(this, new PoiClickedEventArgs(new POI(point, pid, name)));
         }
 
         internal bool SendMyLocationClicked()
